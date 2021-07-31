@@ -1,15 +1,15 @@
-const gm = require('gm')
-
+const gm = require('gm');
 const {
     workerData,
     parentPort
-} = require('worker_threads')
+} = require('worker_threads');
 
-gm(workerData.source).write().monochrome(workerData.destinaton, (error) => {
-    if (error) {
-        throw error;
-    }
-    parentPort.postMessage({
-        monochrome: true
-    })
-})
+gm(workerData.source)
+    .monochrome()
+    .write(workerData.destination, (error) => {
+        if (error) throw error;
+
+        parentPort.postMessage({
+            monochrome: true
+        });
+    });
